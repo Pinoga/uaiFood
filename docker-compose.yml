@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  api-dev:
+    build: .
+    container_name: "api-dev"
+    env_file:
+      - api-dev.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "mongo-dev"
+  mongo-dev:
+    image: mongo:4.4.3
+    container_name: "mongo-dev"
+    env_file:
+      - mongo-dev.env
+    ports:
+      - "3001:27017"
+    
+  

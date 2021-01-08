@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 export default function() {
-    mongoose.connect(process.env.MONGO_URI);
+    mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true};
     
     mongoose.connection.on('connected', () => {
         console.log('Connected to mongodb at %s', process.env.MONGO_URI);
