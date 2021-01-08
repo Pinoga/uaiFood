@@ -1,7 +1,9 @@
 import {Schema} from 'mongoose'
 
 const CuisineSchema = new Schema({
-    name: String,
+    name: {
+        type: String
+    },
 })
 
 export default CuisineSchema
