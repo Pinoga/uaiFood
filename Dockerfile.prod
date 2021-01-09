@@ -5,11 +5,11 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install && npm install -g tsc
+RUN npm install
 
-COPY . .
+COPY . ./
 
-RUN tsc
+RUN npm run build
 
 #Segunda camada: instalação apenas dos pacotes usados produção e remoção do cache
 FROM node:14-alpine
@@ -18,8 +18,10 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --only-production $$ npm cache clean --force
+RUN npm install --only-production && npm cache clean --force
 
-COPY --from=builder /app/dist ./dist
+COPY . ./ 
 
-CMD ["npm", "start"]
+COPY --from=builder /app/dist/ ./dist/
+
+CMD node dist/server.js
