@@ -1,8 +1,13 @@
-import express from 'express'
-import ApiRouter from './api'
+import express from 'express';
+import GraphQLRouter  from '../graphql'
 
-const MainRouter = express.Router()
+import ApiRouter from './api';
+// import schema from '../graphql/schema';
 
-MainRouter.use("/api", ApiRouter)
+const MainRouter = express.Router();
 
-export default MainRouter
+MainRouter.use("/graphql", GraphQLRouter);
+// MainRouter.use("/api", ApiRouter);
+
+
+export default MainRouter;

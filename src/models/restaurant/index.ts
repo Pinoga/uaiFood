@@ -1,5 +1,19 @@
 import { Schema } from 'mongoose';
+import Item from '../item'
 
+const pointSchema = new Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+        required: true
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+}, {
+    _id: false
+});
 
 const RestaurantSchema = new Schema({
     name: {
@@ -9,17 +23,22 @@ const RestaurantSchema = new Schema({
         maxlength: 50
     },
     cuisineType: {
-        type: Schema.Types.ObjectId,
+        type: String,
+        // type: Schema.Types.ObjectId,
         required: true, 
-        ref: 'Cuisine'
+        // ref: 'Cuisine'
+    },
+    city: {
+        type: String,
+        required: true,
+        minLength: 1,
+        maxlength: 50
     },
     location: {
-        type: [String],
+        type: pointSchema,
         required: true
     },
-    items: {
-        type: [{type: Schema.Types.ObjectId, ref: 'item'}],
-    }
-})
+    items: [{type: Schema.Types.ObjectId, ref: 'item'}],
+});
 
-export default RestaurantSchema
+export default RestaurantSchema;
