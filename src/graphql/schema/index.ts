@@ -1,77 +1,72 @@
-import { composeMongoose } from 'graphql-compose-mongoose';
-import { SchemaComposer, toInputObjectType } from 'graphql-compose';
-import { Item, Restaurant } from '../../models';
-import { buildSchema, GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
+// import { ItemResolver } from './../resolvers/item';
+// import { RestaurantResolver } from './../resolvers/restaurant';
+// import {buildSchema} from 'type-graphql'
+
+// const typeDefs = `
+//     type Item {
+//         id: ID
+//         name: String!
+//         cuisineType: String!
+//         price: Float!
+//     }
+
+//     type Point {
+//         type: String!
+//         coordinates: [Int]!
+//     }
+
+//     type Restaurant {
+//         id: ID
+//         name: String!
+//         cuisineType: String!
+//         city: String!
+//         location: [Int!]!
+//         items: [Item]
+//     }
+    
+//     input DistanceInput {
+//         center: [Int!]!
+//         radius: Int!
+//     }
+    
+//     input ItemInput {
+//         name: String!
+//         cuisineType: String!
+//         price: Float!
+//     }
+    
+//     input ItemInputOptional {
+//         name: String
+//         cuisineType: String
+//         price: Float
+//     }
+    
+//     input RestaurantInput {
+//         name: String!
+//         cuisineType: String!
+//         city: String!
+//         items: [ItemInput]
+//         location: [Int!]!
+//     }
+    
+//     type Query {
+//         restaurants(city: String, distance: DistanceInput, cuisineType: String, itemRelated: String): [Restaurant]
+//         items: [Item]
+//     }
+
+//     type Mutation {
+//         createRestaurant(restaurant: RestaurantInput!): Restaurant
+//         createItem(item: ItemInput!, restaurantId: ID!): Item
+//         updateItem(restaurantId: ID!, itemId: ID!, newData: ItemInputOptional!): Item
+//     }
+
+//     schema {
+//         query: Query
+//         mutation: Mutation
+//     }
+// `
 
 
-const schema = buildSchema(`
-    type Item {
-        id: ID
-        name: String!
-        cuisineType: String!
-        price: Float!
-    }
-
-    type Point {
-        type: String!
-        coordinates: [Int]!
-    }
-
-    type Restaurant {
-        id: ID
-        name: String!
-        cuisineType: String!
-        city: String!
-        location: Point!
-        items: [Item]
-    }
-    
-    input DistanceInput {
-        center: [Int]!
-        radius: Int!
-    }
-    
-    input ItemInput {
-        name: String!
-        cuisineType: String!
-        price: Float!
-    }
-    
-    input ItemInputOptional {
-        name: String
-        cuisineType: String
-        price: Float
-    }
-    
-    input RestaurantInput {
-        name: String!
-        cuisineType: String!
-        city: String!
-        items: [ItemInput]
-        location: PointInput!
-    }
-    
-    input PointInput {
-        type: String
-        coordinates: [Int]
-    }
-    
-    type Query {
-        restaurants(city: String, distance: DistanceInput, cuisineType: String, itemName: String): [Restaurant]
-        items: [Item]
-    }
-
-    type Mutation {
-        createRestaurant(restaurant: RestaurantInput!): Restaurant
-        createItem(item: ItemInput!, restaurantId: ID!): Item
-        updateItem(restaurantId: ID!, itemId: ID!, newData: ItemInputOptional): Item
-    }
-
-    schema {
-        query: Query
-        mutation: Mutation
-    }
-`)
 
 // const schema = buildSchema(`
 //     type Query {
@@ -79,7 +74,6 @@ const schema = buildSchema(`
 //     }
 // `)
 
-export default schema;
 
 // const customizationOptions = {};
 

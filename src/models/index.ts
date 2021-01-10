@@ -1,9 +1,7 @@
-import { model } from 'mongoose';
+import { Model, model } from 'mongoose';
 
-import CuisineSchema from './cuisine';
-import ItemSchema from './item';
-import RestaurantSchema from './restaurant';
+import ItemSchema, { IItem } from './item';
+import RestaurantSchema, { IRestaurant } from './restaurant';
 
-export const Cuisine = model('cuisine', CuisineSchema);
-export const Item = model('item', ItemSchema);
-export const Restaurant = model('restaurant', RestaurantSchema);
+export const Item = model<IItem>('item', ItemSchema);
+export const Restaurant = model<IRestaurant>('restaurant', RestaurantSchema);
