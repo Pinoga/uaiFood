@@ -19,7 +19,7 @@ export default async function startServer() {
         validate: true
     }) 
 
-    //Endpoint para todos os requests da aplicação
+    //Endpoint para todos os requests à API
     app.use("/graphql", graphqlHTTP({schema, graphiql: true}))
 
     app.listen(process.env.PORT, () => {

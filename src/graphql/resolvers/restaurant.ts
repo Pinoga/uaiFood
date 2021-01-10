@@ -2,6 +2,7 @@ import { ArgsType, Field, Query, Resolver, Args, Arg, Mutation, InputType, Int }
 import { Restaurant, RestaurantInput } from "../schema/restaurant";
 import RestaurantService from '../services/restaurant'
 
+//Schema auxiliar para o input das coordenadas e raio de proximidade
 @InputType()
 class DistanceInput {
     
@@ -13,6 +14,7 @@ class DistanceInput {
 }
 
 
+//Argumentos da Query restaurants
 @ArgsType()
 export class RestaurantsArgs {
     

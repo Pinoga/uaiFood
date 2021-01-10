@@ -2,6 +2,7 @@ import { ItemInput, Item, ItemInputOptional } from './../schema/item';
 import { Field, ID, Mutation, Query, Resolver, ArgsType, Args } from "type-graphql";
 import ItemService from "../services/item";
 
+//Argumentos da mutation createItem
 @ArgsType()
 export class CreateItemArgs {
 
@@ -13,6 +14,7 @@ export class CreateItemArgs {
 
 }
 
+//Argumentos da mutation updateItem
 @ArgsType()
 export class UpdateItemArgs {
 
