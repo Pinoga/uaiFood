@@ -1,8 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "sourceMap": true,
-    "esModuleInterop": true
+    "compilerOptions": {
+      "target": "es2018",
+      "module": "commonjs",
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "outDir": "./dist",
+      "lib": ["ES2018", "ES2018.AsyncIterable"],
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true
+    }
   }
-}
+  
+  

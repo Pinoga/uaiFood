@@ -11,7 +11,8 @@ COPY . ./
 
 RUN npm run build
 
-#Segunda camada: instalação apenas dos pacotes usados produção e remoção do cache
+#Segunda camada: instalação apenas dos pacotes usados em produção e remoção do cache
+#Para minimizar o tamanho da imagem criada
 FROM node:14-alpine
 
 WORKDIR /app

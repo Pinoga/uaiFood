@@ -1,7 +1,7 @@
 import {connect, connection} from 'mongoose'
 
-export default function() {
-    connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+export default async function() {
+    await connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
     
     connection.on('connected', () => {
         console.log('Connected to mongodb at %s', process.env.MONGO_URI);

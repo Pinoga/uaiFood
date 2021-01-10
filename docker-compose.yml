@@ -1,26 +1,21 @@
 version: "3.8"
 services:
-  api-dev:
+  api:
     build: 
       context: .
       dockerfile: ./Dockerfile.dev
-    # container_name: "api-dev"
     env_file:
-      - ./config/api-dev.env
+      - ./.env
     ports:
-      # - 3000:3000 
       - "${HOST_PORT}:${PORT}"
     depends_on:
-      - "mongo-dev"
+      - "mongo"
     volumes:
       - ./src:/app/src
-  mongo-dev:
+  mongo:
     image: mongo:4.4.3
-    # container_name: "mongo-dev"
-    # env_file:
-      # - ./config/mongo-dev.env
     ports:
       - "27017:27017"
-    # volumes:
-      # - ./mongo:/data/db
+    volumes:
+      - ./mongo:/data/db
   

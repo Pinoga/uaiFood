@@ -1,10 +1,21 @@
 import express from 'express'
-import MainRouter from '../routes'
+import { graphqlHTTP } from 'express-graphql';
+import { buildSchema } from 'type-graphql'
+import { ItemResolver } from '../graphql/resolvers/item'
 
-export default function startServer() {
+import { RestaurantResolver } from '../graphql/resolvers/restaurant'
+import dbconnect from '../db'
+
+export default async function startServer() {
     const app = express()
+    dbconnect()
 
-    app.use("/", MainRouter)
+    const schema = await buildSchema({
+        resolvers: [RestaurantResolver, ItemResolver],
+        validate: true
+    }) 
+
+    app.use("/graphql", graphqlHTTP({schema, graphiql: true}))
 
     app.listen(process.env.PORT, () => {
         console.log("App is listening on port %d", process.env.PORT)

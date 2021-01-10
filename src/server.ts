@@ -1,33 +1,30 @@
-import { Restaurant, Cuisine, Item } from './models';
+import 'reflect-metadata';
 import express from 'express'
+import { graphqlHTTP } from 'express-graphql';
+import { buildSchema } from 'type-graphql'
+
+import { ItemResolver } from './graphql/resolvers/item'
+import { RestaurantResolver } from './graphql/resolvers/restaurant'
+
 import dbconnect from './db'
-import startServer from './server/start';
 
-startServer()
-dbconnect()
-
-
-
-
-async function createCuisine() {
-    const cuisine = new Cuisine({
-        name: "Brasileira" 
-    })
-    try {
-        const res = await cuisine.save()
-        console.log("Resposta do save: ", res)
-    } catch (err) {
-        console.error("Failed to save Cuisine document")
-        console.error(err)
-    }
+export default async function startServer() {
+    const app = express()
     
-    // await Cuisine.findOne({_id: cuisine._id})
-    // .exec((err, cuisine) => {
-    //     if (err) {
-    //         console.error("Failed to find Cuisine document by id: %s", cuisine._id)
-    //     }
-    //     console.log(JSON.stringify(cuisine))
-    // })
+    await dbconnect()
+
+    //Schema executável do GraphQL, construído a partir dos resolvers dos dois modelos
+    const schema = await buildSchema({
+        resolvers: [RestaurantResolver, ItemResolver],
+        validate: true
+    }) 
+
+    //Endpoint para todos os requests da aplicação
+    app.use("/graphql", graphqlHTTP({schema, graphiql: true}))
+
+    app.listen(process.env.PORT, () => {
+        console.log("App is listening on port %d", process.env.PORT)
+    })
 }
 
-// createCuisine()
+startServer()
