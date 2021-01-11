@@ -25,7 +25,7 @@ sudo docker-compose -f docker-compose.prod.yml up --build
 ```
 
 ## Uso
-Após rodar os comandos de instalação, a API estará disponível no endpoint http://localhost:3000/graphql
+Após rodar os comandos de instalação, a API estará disponível no endpoint http://localhost:${HOST_PORT}/graphql, onde HOST_PORT tem como default 3000 para desenvolvimento e 3001 para produção.
 As requisições podem ser feitas pela interface do GraphQL, ou por um HTTP Request
 #### 1. Cadastrar Restaurante
   
@@ -119,7 +119,7 @@ As requisições podem ser feitas pela interface do GraphQL, ou por um HTTP Requ
   - **distance**: Coordenadas do ponto de busca e raio, em quilômetros, ao redor do ponto `(definição a seguir)` 
   - **cuisineType**: Tipo de cozinha à qual restringir a busca: `String`
   - **itemRelated**: Termo para buscar restaurantes relacionados: `String`
-    - O termo pode ser tanto um tipo de cozinha o nome de um prato.
+    - O termo pode ser tanto um tipo de cozinha o nome de um prato `[Nome do prato em teste]`.
     - A busca leva em conta o radical das palavras e ignora acentos e letras maiúsculas
     
    ```graphql
@@ -140,4 +140,12 @@ As requisições podem ser feitas pela interface do GraphQL, ou por um HTTP Requ
   ``` 
   
   ## E agora?
-  Esse projeto foi feito com muito carinho e dedicação, porém, devido à grande carga horária do trabalho, **ainda** não pude implementar todas as funcionalidades com a qualidade que eu desejava, nem as features extras como o frontend e a autenticação. Com o tempo, vou incrementar o projeto e aproveitar essa jornada como fonte de aprendizado! 
+  Esse projeto foi feito com muito carinho e dedicação, porém, devido à grande carga horária do trabalho, **ainda** não pude implementar todas as funcionalidades com a qualidade que eu desejava, nem as features extras como o frontend e a autenticação. Com o tempo, vou incrementar o projeto e aproveitar essa jornada como fonte de aprendizado!
+  
+  TODO LIST:
+    - Busca por itens relacionados incluir corretamente os nomes dos pratos
+    - Busca por nomes (cidade, tipo de cozinha) ser case-insensitive e normalizada
+    - Mensagens customizadas de erros de validação no GraphQL
+    - Transactions
+    - Logs diferenciados entre DEV/PROD
+

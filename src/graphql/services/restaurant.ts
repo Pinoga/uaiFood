@@ -7,7 +7,6 @@ export default {
         const { city, distance, cuisineType, itemRelated } = args;
         const query = {};
         try {
-
             //Se a cidade for fornecida, restringe a busca aos restaurantes da cidade
             //TODO: implementar busca por semelhança de palavras para melhorar a usabilidade da API
             if (city) {
@@ -31,12 +30,7 @@ export default {
 
             //Se o tipo de cozinha for fornecido, restringe a busca aos restaurantes com o mesmo tipo de cozinha
             if (cuisineType) {
-                query['$text'] = {
-                    $search: cuisineType,
-                    $language: "pt",
-                    $caseSensitive: false,
-                    $diacriticSensitive: false,
-                };
+                query['cuisineType'] = cuisineType
             }
             
             //Se o termo de itens relacionados for fornecido, restringe a busca pelos restaurantes que possuem 
@@ -68,7 +62,7 @@ export default {
             
             //Se um restaurante com o mesmo nome já existe, gera um erro
             const exists = await Restaurant.find({name: restaurant.name})
-            if (exists) {
+            if (!exists) {
                 throw Error(`Restaurante com nome ${restaurant.name} já existe.`)
             }
 

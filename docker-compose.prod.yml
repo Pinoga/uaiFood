@@ -7,7 +7,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - "${HOST_PORT}:${PORT}"
+      - "${HOST_PORT_PROD}:${PORT}"
     depends_on:
       - "mongo"
   mongo:

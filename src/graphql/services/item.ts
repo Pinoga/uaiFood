@@ -18,7 +18,7 @@ export default {
         const {item, restaurantId} = args;
         try {
             const newItem = await new Item(item).save();
-            await Restaurant.findOneAndUpdate({_id: restaurantId}, {$push: {items: newItem._id}});
+            await Restaurant.findOneAndUpdate({_id: restaurantId}, {$push: {items: newItem._id}}, {useFindAndModify: true});
             return newItem;
         } catch (err) {
             console.error(err.stack || err)

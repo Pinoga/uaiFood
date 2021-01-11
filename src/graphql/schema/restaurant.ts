@@ -1,4 +1,4 @@
-import { ArrayMaxSize, ArrayMinSize, IsEmail, Length } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, Length } from 'class-validator';
 import { Field, ObjectType, ID, InputType } from 'type-graphql'
 import { Item, ItemInput } from './item'
 
