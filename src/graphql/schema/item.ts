@@ -1,6 +1,7 @@
 import { Length, Min } from 'class-validator';
 import { Field, ObjectType, ID, InputType, Float } from 'type-graphql'
 
+//Schema do item que será retornado pela API
 @ObjectType()
 export class Item {
 
@@ -17,6 +18,8 @@ export class Item {
     price: number;
 }
 
+//Schema do item que a API recebe do cliente
+//Validações simples para todos os campos
 @InputType()
 export class ItemInput {
 
@@ -33,6 +36,9 @@ export class ItemInput {
     price: number;
 }
 
+//Schema auxiliar para incluir o caso da Mutation updateItem, onde 
+//qualquer campo do item é opcional
+//TODO: Utilizar apenas um Schema para os dois casos para evitar duplicidade de código
 @InputType()
 export class ItemInputOptional {
 

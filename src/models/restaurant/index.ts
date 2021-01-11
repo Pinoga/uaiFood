@@ -1,20 +1,7 @@
 import { Document, Schema } from 'mongoose';
-import Item from '../item'
 
-const pointSchema = new Schema({
-    type: {
-        type: String,
-        enum: ['Point'],
-        required: true
-    },
-    coordinates: {
-        type: [Number],
-        required: true
-    }
-}, {
-    _id: false
-});
-
+//Schema do modelo do Restaurante no MongoDB
+//Apenas os IDs dos itens são salvos nos documentos, não os objetos
 const RestaurantSchema = new Schema({
 
     email: {
@@ -41,9 +28,7 @@ const RestaurantSchema = new Schema({
     },
     cuisineType: {
         type: String,
-        // type: Schema.Types.ObjectId,
         required: true,
-        // ref: 'Cuisine'
     },
     city: {
         type: String,
@@ -63,6 +48,21 @@ RestaurantSchema.index({cuisineType: 'text'});
 export interface IRestaurant extends Document {
     email: string,
     password: string,
+    name: string,
+    cuisineType: string,
+    city: string,
+    location: [Number],
+    items: [Schema.Types.ObjectId]
+}
+
+
+//O tipo de cozinha é indexado para a busca por similaridade
+RestaurantSchema.index({cuisineType: 'text'});
+
+//As coordenadas são indexadas para a busca por localização funcionar
+RestaurantSchema.index({location: '2dsphere'});
+
+export interface IRestaurant extends Document {
     name: string,
     cuisineType: string,
     city: string,
