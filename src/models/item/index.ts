@@ -18,8 +18,7 @@ const ItemSchema = new Schema({
 });
 
 //Tanto o tipo de cozinha quando o nome do item são indexados para buscar itens relacionados
-ItemSchema.index({cuisineType: 'text'})
-ItemSchema.index({name: 'text'})
+ItemSchema.index({cuisineType: 'text', name: 'text'})
 
 export interface IItem extends Document {
     name: string,

@@ -1,15 +1,13 @@
 import 'reflect-metadata';
-import express from 'express'
-import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'type-graphql'
-
+import { ApolloServer } from 'apollo-server'
 import { ItemResolver } from './graphql/resolvers/item'
 import { RestaurantResolver } from './graphql/resolvers/restaurant'
 
 import dbconnect from './db'
 
 export default async function startServer() {
-    const app = express()
+    // const app = express()
     
     await dbconnect()
 
@@ -19,12 +17,12 @@ export default async function startServer() {
         validate: true
     }) 
 
-    //Endpoint para todos os requests à API
-    app.use("/graphql", graphqlHTTP({schema, graphiql: true}))
-
-    app.listen(process.env.PORT, () => {
-        console.log("App is listening on port %d", process.env.PORT)
+    const server = new ApolloServer({
+        schema, playground: true
     })
+
+    await server.listen(process.env.PORT)
+    console.log(`App is listening on port ${process.env.HOST_PORT}`)
 }
 
 startServer()

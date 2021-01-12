@@ -24,15 +24,15 @@ export class Item {
 export class ItemInput {
 
     @Field()
-    @Length(1, 50)    
+    @Length(1, 50, {message: "O nome do item não pode ser vazio, e deve possuir no máximo 50 caracteres"})    
     name: string;
 
     @Field()
-    @Length(1, 50)
+    @Length(1, 50, {message: "O tipo de cozinha não pode ser vazio, e deve possuir no máximo 50 caracteres"})
     cuisineType: string;
 
     @Field(type => Float)
-    @Min(0)
+    @Min(0, {message: "O preço não pode ser negativo"})
     price: number;
 }
 
@@ -43,14 +43,14 @@ export class ItemInput {
 export class ItemInputOptional {
 
     @Field({nullable: true})
-    @Length(1, 50)    
-    name: string;
+    @Length(1, 50, {message: "O nome do item não pode ser vazio, e deve possuir no máximo 50 caracteres"})    
+    name?: string;
 
     @Field({nullable: true})
-    @Length(1, 50)    
-    cuisineType: string;
+    @Length(1, 50, {message: "O tipo de cozinha não pode ser vazio, e deve possuir no máximo 50 caracteres"})    
+    cuisineType?: string;
 
     @Field(type => Float, {nullable:  true})
-    @Min(0)
-    price: number;
+    @Min(0, {message: "O preço não pode ser negativo"})
+    price?: number;
 }

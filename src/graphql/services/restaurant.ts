@@ -1,4 +1,5 @@
 import {Item, Restaurant} from '../../models'
+import { IItem } from '../../models/item';
 
 export default {
     //Retorna todos os restaurantes que passaram por todos os filtros fornecidos
@@ -63,14 +64,23 @@ export default {
             //Se um restaurante com o mesmo nome já existe, gera um erro
             const exists = await Restaurant.find({name: restaurant.name})
             if (!exists) {
-                throw Error(`Restaurante com nome ${restaurant.name} já existe.`)
+                throw Error(`Restaurante com nome ${restaurant.name} já existe`)
             }
 
-            //Primeiro salva os itens fornecidos, armazenando num array para posterior salvamento do restaurante
-            //TODO: Implementar transaction para abortar qualquer operação caso algum erro ocorra
             const savedItems = [];
-            for (let item of restaurant.items) {
-                savedItems.push((await new Item(item).save())._id);
+            if (restaurant?.items?.length) {
+
+                //Se existirem dois itens com o mesmo nome na lista, gera um erro
+                const itemNames = restaurant.items.map(i => (<unknown>i as IItem).name)
+                if (new Set(itemNames).size !== itemNames.length) {
+                    throw Error(`Itens de um mesmo restaurante não podem ter o mesmo nome`)
+                }
+
+                //Primeiro salva os itens fornecidos, armazenando num array para posterior salvamento do restaurante
+                //TODO: Implementar transaction para abortar qualquer operação caso algum erro ocorra
+                for (let item of restaurant.items) {
+                    savedItems.push((await new Item(item).save())._id);
+                }
             }
             
             //Finalmente salva o restaurante com o array de itens

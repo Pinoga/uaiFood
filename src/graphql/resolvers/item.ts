@@ -1,6 +1,7 @@
 import { ItemInput, Item, ItemInputOptional } from './../schema/item';
 import { Field, ID, Mutation, Query, Resolver, ArgsType, Args } from "type-graphql";
 import ItemService from "../services/item";
+import { IsMongoId, ValidateNested } from 'class-validator';
 
 //Argumentos da mutation createItem
 @ArgsType()
@@ -10,6 +11,7 @@ export class CreateItemArgs {
     item: ItemInput;
 
     @Field(type => ID)
+    @IsMongoId({message: "Formato de ID incorreto"})
     restaurantId: string;
 
 }
@@ -19,11 +21,14 @@ export class CreateItemArgs {
 export class UpdateItemArgs {
 
     @Field(type => ID)
+    @IsMongoId({message: "Formato de ID incorreto"})
     restaurantId: string;
 
     @Field(type => ID)
+    @IsMongoId({message: "Formato de ID incorreto"})
     itemId: string;
 
+    @ValidateNested()
     @Field(type => ItemInputOptional)
     newData: ItemInputOptional;
 }
@@ -38,12 +43,12 @@ export class ItemResolver {
     }
 
     @Mutation(returns => Item, {nullable: true})
-    createItem(@Args() args: CreateItemArgs) {
+    createItem(@Args({validate: true}) args: CreateItemArgs) {
         return ItemService.createItem(args);
     }
 
     @Mutation(returns => Item, {nullable: true})
-    updateItem(@Args() args: UpdateItemArgs) {
+    updateItem(@Args({validate: true}) args: UpdateItemArgs ) {
         return ItemService.updateItem(args);
     }
 }

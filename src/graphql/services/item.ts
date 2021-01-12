@@ -1,3 +1,4 @@
+import { IItem } from './../../models/item/index';
 import {Item, Restaurant} from '../../models'
 
 //Implementação de todos os serviços relacionados ao item
@@ -17,12 +18,33 @@ export default {
     async createItem (args) {
         const {item, restaurantId} = args;
         try {
+        
+            //Se um item com o mesmo nome já existe, gera um erro
+            const restaurant = await Restaurant.findOne({_id: restaurantId})
+            if (!restaurant) {
+                throw Error(`Restaurante com id ${restaurantId} não existe`)
+            }
+        
+            //Se o restaurante já possui um item com aquele nome, gera um erro
+            const populatedRestaurant = await restaurant.populate('items').execPopulate()
+            if (populatedRestaurant.items.map(i => (<unknown>i as IItem).name).includes(item.name)) {
+                throw Error(`Restaurante já possui item com o nome ${item.name}`)
+            }
+
             const newItem = await new Item(item).save();
-            await Restaurant.findOneAndUpdate({_id: restaurantId}, {$push: {items: newItem._id}}, {useFindAndModify: true});
+            if (!new Item) {
+                throw Error(`Erro ao criar novo item`)
+            }
+
+            const newRestaurant = await Restaurant.findOneAndUpdate({_id: restaurantId}, {$push: {items: newItem._id}}, {useFindAndModify: true, new: true});
+            if (!newRestaurant) {
+                throw Error(`Erro ao adicionar item ao restaurante`)
+            }
+
             return newItem;
         } catch (err) {
             console.error(err.stack || err)
-            throw Error(`Erro ao criar novo item.`);
+            throw err;
         }
     },
     //Atualiza item do cardápio de um restaurante
@@ -36,7 +58,7 @@ export default {
                 return item;
             }
             else {
-                throw Error(`Restaurant with id ${restaurantId} does not contain Item with id ${itemId}`);
+                throw Error(`Restaurante com id ${restaurantId} não contém item com id ${itemId}`);
             }
         } catch (err) {
             console.error(err)
