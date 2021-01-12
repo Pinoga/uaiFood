@@ -119,7 +119,7 @@ As requisições podem ser feitas pela interface do GraphQL, ou por um [HTTP Req
   - **distance**: Coordenadas do ponto de busca e raio, em quilômetros, ao redor do ponto `(definição a seguir)` 
   - **cuisineType**: Tipo de cozinha à qual restringir a busca: `String`
   - **itemRelated**: Termo para buscar restaurantes relacionados: `String`
-    - O termo pode ser tanto um tipo de cozinha o nome de um prato `[Nome do prato em teste]`.
+    - O termo pode ser tanto um tipo de cozinha o nome de um prato
     - A busca leva em conta o radical das palavras e ignora acentos e letras maiúsculas
     
    ```graphql
