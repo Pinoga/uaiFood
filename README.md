@@ -13,6 +13,7 @@ Arquitetei o sistema pensando na [separação de responsabilidades](https://pt.s
 - [Docker Compose](https://docs.docker.com/compose/install/) v1.27.4
 
 ## Instalação
+Observação: As portas definidas no .env precisam estar livres na máquina.
 ```
 git clone https://github.com/Pinoga/uaiFood.git
 cd uaiFood
